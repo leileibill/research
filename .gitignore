@@ -1,6 +1,6 @@
 # LTSpice waveform data and log files
-.raw
-.log
+*.raw
+*.log
 
 # Windows image file caches
 Thumbs.db
