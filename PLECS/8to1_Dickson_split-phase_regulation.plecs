@@ -21,9 +21,10 @@ Plecs {
   StiffnessDetectionMsg "2"
   MaxConsecutiveZCs "1000"
   AssertionAction "1"
-  InitializationCommands "fsw = 250e3;\n\nVin = 280;\nIout = 5;\nVout = 14;\nN"
-" = 8;\n\n\n\n\nCfly = 0.47e-6;\nC1 = Cfly;\nC2 = Cfly;\nC3 = Cfly;\nC4 = Cfly"
-";\nC5 = Cfly;\nC6 = Cfly;\nC7 = Cfly;"
+  InitializationCommands "fsw = 250e3;\n\nVin = 280;\nIout = 5;\nN = 8;\nduty "
+"= 0.5;\nsplit = 5.5/8;\nVout = Vin/N*duty;\n\n\nCfly = 0.47e-6;\nC1 = Cfly;\n"
+"C2 = Cfly;\nC3 = Cfly;\nC4 = Cfly;\nC5 = Cfly;\nC6 = Cfly;\nC7 = Cfly;\nL = 6"
+".8e-6;\n\nRon_h = 20e-3;\nRon_l = 5e-3;"
   InitialState  "1"
   SystemState   ""
   CodeGenTopologies "[]"
@@ -39,9 +40,9 @@ Plecs {
   ExtendedMatrixPrecision "1"
   MatrixSignificanceCheck "2"
   Schematic {
-    Location      [17, 378; 1383, 1043]
+    Location      [17, 215; 1383, 880]
     ZoomFactor    1
-    SliderPosition [0, 93]
+    SliderPosition [0, 1]
     ShowBrowser   off
     BrowserWidth  100
     Component {
@@ -53,7 +54,7 @@ Plecs {
       Flipped       on
       Parameter {
         Variable      "Ron"
-        Value         "5e-3"
+        Value         "Ron_h"
         Show          off
       }
       Parameter {
@@ -81,7 +82,7 @@ Plecs {
       Flipped       on
       Parameter {
         Variable      "Ron"
-        Value         "5e-3"
+        Value         "Ron_h"
         Show          off
       }
       Parameter {
@@ -109,7 +110,7 @@ Plecs {
       Flipped       off
       Parameter {
         Variable      "Ron"
-        Value         "5e-3"
+        Value         "Ron_h"
         Show          off
       }
       Parameter {
@@ -137,7 +138,7 @@ Plecs {
       Flipped       off
       Parameter {
         Variable      "Ron"
-        Value         "5e-3"
+        Value         "Ron_l"
         Show          off
       }
       Parameter {
@@ -165,7 +166,7 @@ Plecs {
       Flipped       off
       Parameter {
         Variable      "Ron"
-        Value         "20e-3"
+        Value         "Ron_h"
         Show          off
       }
       Parameter {
@@ -193,7 +194,7 @@ Plecs {
       Flipped       off
       Parameter {
         Variable      "Ron"
-        Value         "20e-3"
+        Value         "Ron_h"
         Show          off
       }
       Parameter {
@@ -221,7 +222,7 @@ Plecs {
       Flipped       off
       Parameter {
         Variable      "Ron"
-        Value         "20e-3"
+        Value         "Ron_h"
         Show          off
       }
       Parameter {
@@ -249,7 +250,7 @@ Plecs {
       Flipped       off
       Parameter {
         Variable      "Ron"
-        Value         "20e-3"
+        Value         "Ron_h"
         Show          off
       }
       Parameter {
@@ -277,7 +278,7 @@ Plecs {
       Flipped       off
       Parameter {
         Variable      "Ron"
-        Value         "20e-3"
+        Value         "Ron_h"
         Show          off
       }
       Parameter {
@@ -305,7 +306,7 @@ Plecs {
       Flipped       off
       Parameter {
         Variable      "Ron"
-        Value         "20e-3"
+        Value         "Ron_h"
         Show          off
       }
       Parameter {
@@ -333,7 +334,7 @@ Plecs {
       Flipped       off
       Parameter {
         Variable      "Ron"
-        Value         "20e-3"
+        Value         "Ron_h"
         Show          off
       }
       Parameter {
@@ -361,7 +362,7 @@ Plecs {
       Flipped       off
       Parameter {
         Variable      "Ron"
-        Value         "20e-3"
+        Value         "Ron_h"
         Show          off
       }
       Parameter {
@@ -528,7 +529,7 @@ Plecs {
       Flipped       off
       Parameter {
         Variable      "L"
-        Value         "6.8e-6"
+        Value         "L"
         Show          off
       }
       Parameter {
@@ -808,7 +809,7 @@ Plecs {
       }
       Parameter {
         Variable      "DutyCycle"
-        Value         "0.5-0.3"
+        Value         "0.5*duty"
         Show          off
       }
       Parameter {
@@ -860,18 +861,17 @@ Plecs {
       Position      [1020, 480]
       Direction     up
       Flipped       off
-      Location      [1169, 300; 2372, 1126]
+      Location      [237, 48; 1440, 808]
       State         "AAAA/wAAAAD9AAAAAgAAAAEAAAAAAAAAAPwCAAAAA/sAAAAQAFoAbwBvA"
-"G0AQQByAGUAYQAAAAAA/////wAAADQA////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwAAAAAA//"
-"///wAAAGYA////+wAAAAwAVAByAGEAYwBlAHMAAAAAAP////8AAABmAP///wAAAAMAAAAAAAAAAPw"
-"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQAAAAAAP////8AAABQAP///wAABLMAAAMfAAAA"
-"BAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAA"
-"AAAAA=="
+"G0AQQByAGUAYQAAAAAA/////wAAAIgA////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwAAAAAA//"
+"///wAAAGoA////+wAAAAwAVAByAGEAYwBlAHMAAAAAAP////8AAABqAP///wAAAAMAAAAAAAAAAPw"
+"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQAAAAAAP////8AAABOAP///wAABLMAAALyAAAA"
+"BAAAAAQAAAAIAAAACPwAAAAA"
       SavedViews    "AAAAAgAAAAA="
       HeaderState   "AAAA/wAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAL/gMAAAAJAAAAC"
 "QAAAGQAAAAIAAAAZAAAAAcAAABkAAAABgAAAGQAAAAFAAAAZAAAAAQAAABkAAAAAwAAAGQAAAACAA"
-"AAZAAAAAEAAABkAAAAvQAAAAsBAAABAAAAAAAAAAAAAAAAZP////8AAACBAAAAAAAAAAMAAACcAAA"
-"AAQAAAAAAAAAAAAAACQAAAAAAAAAhAAAAAQAAAAA="
+"AAZAAAAAEAAABkAAAAtgAAAAsBAAABAAAAAAAAAAAAAAAAZP////8AAACBAAAAAAAAAAMAAACkAAA"
+"AAQAAAAAAAAAAAAAACQAAAAAAAAASAAAAAQAAAAA="
       PlotPalettes  "AAAAAQAAAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAA"
 "AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 "=="
@@ -879,7 +879,7 @@ Plecs {
       TimeRange     "0"
       ScrollingMode "1"
       SingleTimeAxis "1"
-      Open          "1"
+      Open          "0"
       Ts            "-1"
       SampleLimit   "0"
       XAxisLabel    ""
@@ -1000,18 +1000,17 @@ Plecs {
       Position      [950, 530]
       Direction     up
       Flipped       off
-      Location      [0, 31; 1362, 717]
+      Location      [0, 84; 1362, 767]
       State         "AAAA/wAAAAD9AAAAAgAAAAEAAAAAAAAAAPwCAAAAA/sAAAAQAFoAbwBvA"
-"G0AQQByAGUAYQAAAAAA/////wAAADQA////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwAAAAAA//"
-"///wAAAGYA////+wAAAAwAVAByAGEAYwBlAHMAAAAAAP////8AAABmAP///wAAAAMAAAAAAAAAAPw"
-"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQAAAAAAP////8AAABQAP///wAABVIAAAKTAAAA"
-"BAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAA"
-"AAAAA=="
+"G0AQQByAGUAYQAAAAAA/////wAAADgA////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwAAAAAA//"
+"///wAAAGoA////+wAAAAwAVAByAGEAYwBlAHMAAAAAAP////8AAABqAP///wAAAAMAAAAAAAAAAPw"
+"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQAAAAAAP////8AAABOAP///wAABVIAAAKlAAAA"
+"BAAAAAQAAAAIAAAACPwAAAAA"
       SavedViews    "AAAAAgAAAAA="
       HeaderState   "AAAA/wAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAL/gMAAAAJAAAAC"
 "QAAAGQAAAAIAAAAZAAAAAcAAABkAAAABgAAAGQAAAAFAAAAZAAAAAQAAABkAAAAAwAAAGQAAAACAA"
-"AAZAAAAAEAAABkAAAAuwAAAAsBAAABAAAAAAAAAAAAAAAAZP////8AAACBAAAAAAAAAAMAAACaAAA"
-"AAQAAAAAAAAAAAAAACQAAAAAAAAAhAAAAAQAAAAA="
+"AAZAAAAAEAAABkAAAArAAAAAsBAAABAAAAAAAAAAAAAAAAZP////8AAACBAAAAAAAAAAMAAACaAAA"
+"AAQAAAAAAAAAAAAAACQAAAAAAAAASAAAAAQAAAAA="
       PlotPalettes  "AAAAAQAAAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
       Axes          "1"
       TimeRange     "0.0"
@@ -1056,18 +1055,17 @@ Plecs {
       Position      [1065, 325]
       Direction     up
       Flipped       off
-      Location      [0, 31; 1361, 701]
+      Location      [0, 84; 1361, 739]
       State         "AAAA/wAAAAD9AAAAAgAAAAEAAAAAAAAAAPwCAAAAA/sAAAAQAFoAbwBvA"
-"G0AQQByAGUAYQAAAAAA/////wAAAPwA////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwAAAAAA//"
-"///wAAAGYA////+wAAAAwAVAByAGEAYwBlAHMAAAAAAP////8AAABmAP///wAAAAMAAAAAAAAAAPw"
-"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQAAAAAAP////8AAABQAP///wAABVEAAAKDAAAA"
-"BAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAA"
-"AAAAA=="
+"G0AQQByAGUAYQAAAAAA/////wAAAQAA////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwAAAAAA//"
+"///wAAAGoA////+wAAAAwAVAByAGEAYwBlAHMAAAAAAP////8AAABqAP///wAAAAMAAAAAAAAAAPw"
+"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQAAAAAAP////8AAABOAP///wAABVEAAAKJAAAA"
+"BAAAAAQAAAAIAAAACPwAAAAA"
       SavedViews    "AAAAAgAAAAA="
       HeaderState   "AAAA/wAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAL/gMAAAAJAAAAC"
 "QAAAGQAAAAIAAAAZAAAAAcAAABkAAAABgAAAGQAAAAFAAAAZAAAAAQAAABkAAAAAwAAAGQAAAACAA"
-"AAZAAAAAEAAABkAAAAuQAAAAsBAAABAAAAAAAAAAAAAAAAZP////8AAACBAAAAAAAAAAMAAACYAAA"
-"AAQAAAAAAAAAAAAAACQAAAAAAAAAhAAAAAQAAAAA="
+"AAZAAAAAEAAABkAAAAqgAAAAsBAAABAAAAAAAAAAAAAAAAZP////8AAACBAAAAAAAAAAMAAACYAAA"
+"AAQAAAAAAAAAAAAAACQAAAAAAAAASAAAAAQAAAAA="
       PlotPalettes  "AAAAAQAAAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAA"
 "AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 "AAAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAEAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -1228,18 +1226,17 @@ Plecs {
       Position      [1135, 575]
       Direction     up
       Flipped       off
-      Location      [0, 31; 1362, 717]
+      Location      [0, 84; 1362, 767]
       State         "AAAA/wAAAAD9AAAAAgAAAAEAAACBAAAAyPwCAAAAA/sAAAAQAFoAbwBvA"
-"G0AQQByAGUAYQAAAAAA/////wAAASQA////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwAAAAAA//"
-"///wAAAGYA////+wAAAAwAVAByAGEAYwBlAHMAAAAALwAAAMgAAABmAP///wAAAAMAAAAAAAAAAPw"
-"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQAAAAAAP////8AAABQAP///wAABVIAAAKTAAAA"
-"BAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAA"
-"AAAAA=="
+"G0AQQByAGUAYQAAAAAA/////wAAASgA////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwAAAAAA//"
+"///wAAAGoA////+wAAAAwAVAByAGEAYwBlAHMAAAAALwAAAMgAAABqAP///wAAAAMAAAAAAAAAAPw"
+"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQAAAAAAP////8AAABOAP///wAABVIAAAKlAAAA"
+"BAAAAAQAAAAIAAAACPwAAAAA"
       SavedViews    "AAAAAgAAAAA="
       HeaderState   "AAAA/wAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAL/gMAAAAJAAAAC"
 "QAAAGQAAAAIAAAAZAAAAAcAAABkAAAABgAAAGQAAAAFAAAAZAAAAAQAAABkAAAAAwAAAGQAAAACAA"
-"AAZAAAAAEAAABkAAAAugAAAAsBAAABAAAAAAAAAAAAAAAAZP////8AAACBAAAAAAAAAAMAAACZAAA"
-"AAQAAAAAAAAAAAAAACQAAAAAAAAAhAAAAAQAAAAA="
+"AAZAAAAAEAAABkAAAAqwAAAAsBAAABAAAAAAAAAAAAAAAAZP////8AAACBAAAAAAAAAAMAAACZAAA"
+"AAQAAAAAAAAAAAAAACQAAAAAAAAASAAAAAQAAAAA="
       PlotPalettes  "AAAAAQAAAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAA"
 "AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 "AAAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAEAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -1444,7 +1441,7 @@ Plecs {
       }
       Parameter {
         Variable      "DutyCycle"
-        Value         "5.5/8*(0.5-0.3)"
+        Value         "split*(0.5*duty)"
         Show          off
       }
       Parameter {
@@ -1495,12 +1492,12 @@ Plecs {
       }
       Parameter {
         Variable      "DutyCycle"
-        Value         "5.5/8*(0.5-0.3)"
+        Value         "split*(0.5*duty)"
         Show          off
       }
       Parameter {
         Variable      "Delay"
-        Value         "0.5/250e3"
+        Value         "0.5/fsw"
         Show          off
       }
     }
@@ -1529,18 +1526,17 @@ Plecs {
       Position      [990, 615]
       Direction     up
       Flipped       off
-      Location      [8, 30; 675, 700]
+      Location      [8, 84; 675, 751]
       State         "AAAA/wAAAAD9AAAAAgAAAAEAAAAAAAAAAPwCAAAAA/sAAAAQAFoAbwBvA"
-"G0AQQByAGUAYQAAAAAA/////wAAADQA////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwAAAAAA//"
-"///wAAAGYA////+wAAAAwAVAByAGEAYwBlAHMAAAAAAP////8AAABmAP///wAAAAMAAAAAAAAAAPw"
-"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQAAAAAAP////8AAABQAP///wAAApsAAAKDAAAA"
-"BAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAA"
-"AAAAA=="
+"G0AQQByAGUAYQAAAAAA/////wAAADgA////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwAAAAAA//"
+"///wAAAGoA////+wAAAAwAVAByAGEAYwBlAHMAAAAAAP////8AAABqAP///wAAAAMAAAAAAAAAAPw"
+"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQAAAAAAP////8AAABOAP///wAAApsAAAKVAAAA"
+"BAAAAAQAAAAIAAAACPwAAAAA"
       SavedViews    "AAAAAgAAAAA="
       HeaderState   "AAAA/wAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAL/gMAAAAJAAAAC"
 "QAAAGQAAAAIAAAAZAAAAAcAAABkAAAABgAAAGQAAAAFAAAAZAAAAAQAAABkAAAAAwAAAGQAAAACAA"
-"AAZAAAAAEAAABkAAAAtAAAAAsBAAABAAAAAAAAAAAAAAAAZP////8AAACBAAAAAAAAAAMAAACZAAA"
-"AAQAAAAAAAAAAAAAACQAAAAAAAAAbAAAAAQAAAAA="
+"AAZAAAAAEAAABkAAAAqwAAAAsBAAABAAAAAAAAAAAAAAAAZP////8AAACBAAAAAAAAAAMAAACZAAA"
+"AAQAAAAAAAAAAAAAACQAAAAAAAAASAAAAAQAAAAA="
       PlotPalettes  "AAAAAQAAAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
       Axes          "1"
       TimeRange     "0"
@@ -1638,12 +1634,12 @@ Plecs {
       }
       Parameter {
         Variable      "DutyCycle"
-        Value         "0.5-0.3"
+        Value         "0.5*duty"
         Show          off
       }
       Parameter {
         Variable      "Delay"
-        Value         "0.5/250e3"
+        Value         "0.5/fsw"
         Show          off
       }
     }
@@ -1776,24 +1772,6 @@ Plecs {
       Name          "Goto6"
       Show          off
       Position      [730, 630]
-      Direction     right
-      Flipped       off
-      Parameter {
-        Variable      "Tag"
-        Value         "Vout"
-        Show          off
-      }
-      Parameter {
-        Variable      "Visibility"
-        Value         "1"
-        Show          off
-      }
-    }
-    Component {
-      Type          From
-      Name          "From12"
-      Show          off
-      Position      [440, 60]
       Direction     right
       Flipped       off
       Parameter {
@@ -2498,4 +2476,4 @@ Plecs {
     }
   }
 }
-DemoSignature "RC6D8KC+HNtxcnWDjG11iHOtX8ApuSHm5iiAKaIn2mw="
+DemoSignature "qp6BU3GseedkN3q+dnNAarPAg+ijzd2EEekqHSi6sQM="
