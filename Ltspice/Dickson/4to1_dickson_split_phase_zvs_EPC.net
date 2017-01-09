@@ -1,0 +1,72 @@
+* C:\GitHub\research-simulation\Ltspice\Dickson\4to1_dickson_split_phase_zvs_EPC.asc
+V§Source Vin 0 {Vin}
+C3 nc3 mid1 {cc3} V={Vin/4*3} Rser={Resr}
+C1 nc1 mid1 {cc1} V={Vin/4*1} Rser={Resr}
+C2 nc2 mid2 {cc2} V={Vin/4*2} Rser={Resr}
+Co Vload 0 {cco} Rser={Resr}
+I1 Vload 0 PULSE(0 {Iload} {period*50} {period*500} 0 1 2 1)
+L1 nsw N001 {L} Rser=0
+R9 Vload N001 5m
+V1 P001 nc3 PULSE(0 5 0 1n 1n {period/2-delay} {period})
+V3 P002 nsw PULSE(0 5 {period/2} 1n 1n {period/2-delay} {period})
+V5 P003 nc1 PULSE(0 5 0 1n 1n {period/2-10n} {period})
+V6 P004 nc2 PULSE(0 5 {period/2} 1n 1n {period/2-10n} {period})
+XU1 Ph1 Vin nc3 EPC2016C
+XU2 Ph2 nc3 nc2 EPC2016C
+XU3 Ph3 nc2 nc1 EPC2016C
+XU4 Ph4 nc1 nsw EPC2016C
+XU5 Ph5 nsw mid1 EPC2015C
+XU6 Ph6 mid1 0 EPC2015C
+XU7 Ph7 mid2 0 EPC2015C
+XU8 Ph8 nsw mid2 EPC2015C
+V7 P005 mid1 PULSE(0 1 0 1n 1n {period/2-1n} {period})
+V8 P006 0 PULSE(0 5 {period/2} 1n 1n {period/2-1n} {period})
+V9 P007 0 PULSE(0 5 0 1n 1n {period/2-1n} {period})
+V10 P008 mid2 PULSE(0 5 {period/2} 1n 1n {period/2-1n} {period})
+R1 Ph1 P001 {Rgate}
+R2 Ph2 P004 {Rgate}
+R3 Ph3 P003 {Rgate}
+R4 Ph4 P002 {Rgate}
+R5 Ph5 P005 {Rgate}
+R6 Ph6 P006 {Rgate}
+R7 Ph7 P007 {Rgate}
+R8 Ph8 P008 {Rgate}
+.tran 0 {1000*period+period*2} {1000*period} {period/2000} uic
+.meas TRAN IINave AVG I(source)
+.meas TRAN Pin PARAM -IINave*{Vin}
+.meas TRAN VOave AVG V(Vload)
+.meas TRAN Pout PARAM VOave*Iload
+.meas TRAN Ploss PARAM Pin-Pout
+.meas TRAN Efficiency PARAM Pout/Pin
+.meas TRAN VO AVG V(Vload)
+.meas TRAN Vmax MAX V(Vload)
+.meas TRAN Vmin MIN V(Vload)
+.meas TRAN ripple PARAM Vmax-Vmin
+.param Vin=48 Iload=10
+.param cc1=0.4u cc2={cc1} cc3={cc1} cco=100.0u L=0.05u
+.param Resr=0.001 Rgate = 1
+.param period=1u delay=period/6.5
+*.step dec PARAM period 0.4u 4u 5
+*.step PARAM Iload 1 5 1
+.meas TRAN Vc3 MAX V(n001)-V(n003)
+.meas TRAN Vc2 MAX V(n010)-V(n013)
+.meas TRAN Vc1 MAX V(n004)-V(n003)
+.meas TRAN S8max MAX V(n011)-V(n006)
+.meas TRAN S8min MIN V(n011)-V(n006)
+.meas TRAN S7max MAX V(n006)-V(n012)
+.meas TRAN S7min MIN V(n006)-V(n012)
+.meas TRAN S6max MAX V(n012)-V(n008)
+.meas TRAN S6min MIN V(n012)-V(n008)
+.meas TRAN S5max MAX V(n008)-V(n009)
+.meas TRAN S5min MIN V(n008)-V(n009)
+.meas TRAN S1max MAX V(n009)-V(n013)
+.meas TRAN S1min MIN V(n009)-V(n013)
+.meas TRAN S2max MAX V(n009)-V(n003)
+.meas TRAN S2min MIN V(n009)-V(n003)
+.meas TRAN S3max MAX V(n013)
+.meas TRAN S3min MIN V(n013)
+.meas TRAN S4max MAX V(n003)
+.meas TRAN S4min MIN V(n003)
+.lib EPCGanlibrary.lib
+.backanno
+.end
