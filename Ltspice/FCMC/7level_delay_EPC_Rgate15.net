@@ -1,7 +1,7 @@
-* C:\GitHub\research-simulation\Ltspice\FCMC\7level_delay_EPC.asc
+* C:\GitHub\research-simulation\Ltspice\FCMC\7level_delay_EPC_Rgate15.asc
 V2 N010 0 PULSE(0 5 0 {trise} 1p {1/freq*(1-duty)} {1/freq})
 V§Source Vin 0 {Vin}
-V3 N011 nc5b PULSE(0 4.5 {1/freq/6+delay} {trise} 1p {1/freq*(1-duty)-delay+delay2} {1/freq})
+V3 N011 nc5b PULSE(0 {VHS} {1/freq/6+delay} {trise} 1p {1/freq*(1-duty)-delay+delay2} {1/freq})
 C2 nc5t nc5b {C} Rser={ESR} Lser={ESL} IC={Vin/6*5}
 C4 nc4t nc4b {C} Rser={ESR} Lser={ESL} IC={Vin/6*4}
 C6 nc3t nc3b {C} Rser={ESR} Lser={ESL} IC={Vin/6*3}
@@ -11,16 +11,16 @@ L sw N001 10µ Rser=25m ic = {Vin*duty/Rload}
 R1 N001 0 {Rload}
 C10 N001 0 10µ IC={Vin*duty} Rser=1m
 V1 N012 nc4b PULSE(0 5 {1/freq/3} {trise} 1p {1/freq*(1-duty)} {1/freq})
-V4 N013 nc3b PULSE(0 4.5 {1/freq/2+delay} {trise} 1p {1/freq*(1-duty)-delay+delay2} {1/freq})
+V4 N013 nc3b PULSE(0 {VHS} {1/freq/2+delay} {trise} 1p {1/freq*(1-duty)-delay+delay2} {1/freq})
 V5 N014 nc2b PULSE(0 5 {1/freq/3*2} {trise} 1p {1/freq*(1-duty)} {1/freq})
-V6 N015 nc1b PULSE(0 4.5 {1/freq/6*5+delay} {trise} 1p {1/freq*(1-duty)-delay+delay2} {1/freq})
+V6 N015 nc1b PULSE(0 {VHS} {1/freq/6*5+delay} {trise} 1p {1/freq*(1-duty)-delay+delay2} {1/freq})
 V7 N009 sw PULSE(0 5 {1/freq/6*5+1/freq*(1-duty)+dead} {trise} 1p {1/freq*duty-dead*2} {1/freq})
-V8 N004 nc5t PULSE(0 4.5 {1/freq*(1-duty)+dead+delay} {trise} 1p {1/freq*duty-dead*2-delay+delay2} {1/freq})
+V8 N004 nc5t PULSE(0 {VHS} {1/freq*(1-duty)+dead+delay} {trise} 1p {1/freq*duty-dead*2-delay+delay2} {1/freq})
 V9 N005 nc4t PULSE(0 5 {1/freq/6+1/freq*(1-duty)+dead} {trise} 1p {1/freq*duty-dead*2} {1/freq})
-V10 N006 nc3t PULSE(0 4.5 {1/freq/3+1/freq*(1-duty)+dead+delay} {trise} 1p {1/freq*duty-dead*2-delay+delay2} {1/freq})
+V10 N006 nc3t PULSE(0 {VHS} {1/freq/3+1/freq*(1-duty)+dead+delay} {trise} 1p {1/freq*duty-dead*2-delay+delay2} {1/freq})
 V11 N007 nc2t PULSE(0 5 {1/freq/2+1/freq*(1-duty)+dead} {trise} 1p {1/freq*duty-dead*2} {1/freq})
-V12 N008 nc1t PULSE(0 4.5 {1/freq/3*2+1/freq*(1-duty)+dead+delay} {trise} 1p {1/freq*duty-dead*2-delay+delay2} {1/freq})
-R3 N001 sw 1k
+V12 N008 nc1t PULSE(0 {VHS} {1/freq/3*2+1/freq*(1-duty)+dead+delay} {trise} 1p {1/freq*duty-dead*2-delay+delay2} {1/freq})
+R3 N001 sw 10k
 XU1 Ph1 nc5b 0 EPC2016C
 XU2 Ph2 nc4b nc5b EPC2016C
 XU3 Ph3 nc3b nc4b EPC2016C
@@ -59,15 +59,15 @@ D11 Ph5 N014 MyDiode
 D12 Ph6 N015 MyDiode
 .model D D
 .lib C:\Users\pilawa_group\Documents\LTspiceXVII\lib\cmp\standard.dio
-.tran {50m + 2/freq} uic
+.tran 0 {50m + 2/freq} 50m uic
 .model MYSWH SW(Ron=7m Roff=1Meg Vt=.5)
 .model MYSWL SW(Ron=7m Roff=1Meg Vt=.5)
-.model MyDiode D(Ron=2m Roff=1Meg Vfwd=0.01)
-.param delay=3n delay2=2n
+.model MyDiode D(Ron=1 Roff=1Meg Vfwd=0.01)
+.param delay=3n delay2=3n
 .param freq=120k
 .param duty=0.25 Vin= 90 Rload = 5
 .param dead=40n trise=1n
-.param C = 0.5u ESR = 5m ESL = 0n Rgate = 15
+.param C = 2.2u ESR = 5m ESL = 0n Rgate = 15
 .meas TRAN S6max MAX V(sw) - V(nc1b)
 .meas TRAN S5max MAX V(nc1b) - V(nc2b)
 .meas TRAN S4max MAX V(nc2b) - V(nc3b)
@@ -85,6 +85,11 @@ D12 Ph6 N015 MyDiode
 .meas TRAN S3bmax MAX V(nc4t) - V(nc3t)
 .meas TRAN S2bmax MAX V(nc5t) - V(nc4t)
 .meas TRAN S1bmax MAX V(Vin) - V(nc5t)
+.step param VHS list 5 4.5
+*.step param C list 2.2u 1.1u
+*.step param Rload list 10 5
+.step param delay2 list 3n 1.5n
+*.step param Rgate list 2 15
 .lib EPCGanlibrary.lib
 .backanno
 .end
