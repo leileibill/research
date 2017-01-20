@@ -1,21 +1,21 @@
-* C:\GitHub\research-simulation\Ltspice\FCMC\7level_delay.asc
+* C:\GitHub\research-simulation\Ltspice\FCMC\7level_delay_reverse.asc
 V2 N008 0 PULSE(0 1 0 1p 1p {1/freq*(1-duty)} {1/freq})
 A1 N008 0 0 0 0 0 Ph1 0 BUF
 V§Source Vin 0 {Vin}
-S8 nc2t nc1t Ph5b 0 MYSWH
-S7 nc1t sw Ph6b 0 MYSWL
-S9 nc3t nc2t Ph4b 0 MYSWL
-S10 nc4t nc3t Ph3b 0 MYSWH
-S11 nc5t nc4t Ph2b 0 MYSWL
-S12 Vin nc5t Ph1b 0 MYSWH
+S8 nc2t nc1t Ph2b 0 MYSWH
+S7 nc1t sw Ph1b 0 MYSWL
+S9 nc3t nc2t Ph3b 0 MYSWL
+S10 nc4t nc3t Ph4b 0 MYSWH
+S11 nc5t nc4t Ph5b 0 MYSWL
+S12 Vin nc5t Ph6b 0 MYSWH
 V3 N009 0 PULSE(0 1 {1/freq/6+delay} 1p 1p {1/freq*(1-duty)-delay+delay2} {1/freq})
 A3 N009 0 0 0 0 0 Ph2 0 BUF
-S1 nc2b nc1b Ph5 0 MYSWL
-S2 nc1b sw Ph6 0 MYSWH
-S3 nc3b nc2b Ph4 0 MYSWH
-S4 nc4b nc3b Ph3 0 MYSWL
-S5 nc5b nc4b Ph2 0 MYSWH
-S6 0 nc5b Ph1 0 MYSWL
+S1 nc2b nc1b Ph2 0 MYSWL
+S2 nc1b sw Ph1 0 MYSWH
+S3 nc3b nc2b Ph3 0 MYSWH
+S4 nc4b nc3b Ph4 0 MYSWL
+S5 nc5b nc4b Ph5 0 MYSWH
+S6 0 nc5b Ph6 0 MYSWL
 C2 nc5t nc5b {C} Rser={ESR} IC={Vin/6*5}
 C4 nc4t nc4b {C} Rser={ESR} IC={Vin/6*4}
 C6 nc3t nc3b {C} Rser={ESR} IC={Vin/6*3}
@@ -58,14 +58,14 @@ D11 nc1t nc2t MyDiode
 D12 sw nc1t MyDiode
 R3 N001 sw 10k
 .model D D
-.lib C:\Users\pilawa_group\Documents\LTspiceXVII\lib\cmp\standard.dio
+.lib C:\Users\leile\OneDrive\Documents\LTspiceXVII\lib\cmp\standard.dio
 .tran 0 {50m + 2/freq} 50m uic
 .model MYSWH SW(Ron=12m Roff=1Meg Vt=.5)
 .model MYSWL SW(Ron=12m Roff=1Meg Vt=.5)
 .model MyDiode D(Ron=2m Roff=1Meg Vfwd=2)
 .param delay=3n delay2=2n
 .param freq=120k
-.param duty=0.25 Vin= 90 Rload = 100
+.param duty=0.25 Vin= 90 Rload = 10
 .param dead=40n
 .param C = 2.2u ESR = 5m
 .meas TRAN S6max MAX V(sw) - V(nc1b)
@@ -86,8 +86,7 @@ R3 N001 sw 10k
 .meas TRAN S2bmax MAX V(nc5t) - V(nc4t)
 .meas TRAN S1bmax MAX V(Vin) - V(nc5t)
 *.step param C list 2.2u 1.1u
-*.step param Rload list 10 5
-*.step param delay2 list 1.5n 3n
 .step param Rload list 100 50 25 10 5
+*.step param delay2 list 1.5n 3n
 .backanno
 .end
