@@ -1,4 +1,4 @@
 %%  only need to run for the first time
 
-y = read_ltspice_waveform(['../FCMC/7level_delay_reverse.txt']);
-save('7level_delay_reverse_3delay_3delay2.mat','y');
+y = read_ltspice_waveform(['../FCMC/3level_delay.txt']);
+save('3level_delay_3delay_0delay2.mat','y');
