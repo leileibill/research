@@ -1,0 +1,2 @@
+This file lists the purpose of each simulation file.
+4to1_dickson_split_phase_diff_cap.asc -- Proof that a different split-phase ratio exists for different capacitor value distribution in a 4-to-1 Dickson
