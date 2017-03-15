@@ -43,7 +43,7 @@ legend({'delay = 3 ns, delay2 = 0 ns','delay = 3 ns, delay2 = 1 ns', ...
  
 set_figure_style();
 resize_figure(2);
-export_figure('plot_balance_3level','png')
+% export_figure('plot_balance_3level','png')
 
 return
 

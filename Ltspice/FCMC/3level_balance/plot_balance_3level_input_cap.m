@@ -1,0 +1,105 @@
+clc;
+close all;
+clear;
+set_figure_style_pre();
+
+%% Circuit parameter
+fsw = 120e3;
+Rload = [ 50 25 15 10 5 4 3 2];
+Vin = 50;
+duty = 0.25;
+current = Vin*duty./Rload;
+
+
+%% Duty = 0.75
+
+figure;
+var_name = '3level_input_cap_L1.0u_C30u_duty0.75_0n_0n.mat';
+load(var_name);
+iload = iload(2:end)
+vc=vc(2:end)
+vin=vin(2:end)
+plot(iload, vc./vin,'s-')
+hold on;
+
+var_name = '3level_input_cap_L0.1u_C30u_duty0.75_0n_0n.mat';
+load(var_name);
+iload = iload(2:end)
+vc=vc(2:end)
+vin=vin(2:end)
+plot(iload, vc./vin,'s-')
+
+var_name = '3level_input_cap_L0.01u_C30u_duty0.75_0n_0n.mat';
+load(var_name);
+iload = iload(2:end)
+vc=vc(2:end)
+vin=vin(2:end)
+plot(iload, vc./vin,'s-')
+
+var_name = '3level_input_cap_L0.0u_C30u_duty0.75_0n_0n.mat';
+load(var_name);
+iload = iload(2:end)
+vc=vc(2:end)
+vin=vin(2:end)
+plot(iload, vc./vin,'s--')
+% 
+% var_name = '3level_delay_3delay_3delay2.mat';
+% load(var_name);
+% calculate_balance_3level;
+% plot(current, v_diff,'o-')
+title('Duty = 0.75')
+ylabel('Normalized Cap Voltage')
+xlabel('Load Current [A]')
+legend('L=1u, C=30u', 'L=0.1u, C=30u', 'L=0.01u, C=30u', ...
+        'Voltage source', ...
+    'Location','Northwest')
+ 
+set_figure_style();
+resize_figure(2);
+export_figure('plot_balance_3level_input_cap_d75','png')
+
+
+%% Duty = 0.25
+
+figure;
+var_name = '3level_input_cap_L1.0u_C30u_duty0.25_0n_0n.mat';
+load(var_name);
+iload = iload(2:end)
+vc=vc(2:end)
+vin=vin(2:end)
+plot(iload, vc./vin,'s-')
+hold on;
+
+var_name = '3level_input_cap_L0.1u_C30u_duty0.25_0n_0n.mat';
+load(var_name);
+iload = iload(2:end)
+vc=vc(2:end)
+vin=vin(2:end)
+plot(iload, vc./vin,'s-')
+
+var_name = '3level_input_cap_L0.01u_C30u_duty0.25_0n_0n.mat';
+load(var_name);
+iload = iload(2:end)
+vc=vc(2:end)
+vin=vin(2:end)
+plot(iload, vc./vin,'s-')
+
+var_name = '3level_input_cap_L0.0u_C30u_duty0.25_0n_0n.mat';
+load(var_name);
+iload = iload(2:end)
+vc=vc(2:end)
+vin=vin(2:end)
+plot(iload, vc./vin,'s--')
+% 
+
+title('Duty = 0.25')
+ylabel('Normalized Cap Voltage')
+xlabel('Load Current [A]')
+legend('L=1u, C=30u', 'L=0.1u, C=30u', 'L=0.01u, C=30u', ...
+        'Voltage source', ...
+    'Location','Southwest')
+ 
+set_figure_style();
+resize_figure(2);
+export_figure('plot_balance_3level_input_cap_d25','png')
+
