@@ -1,0 +1,44 @@
+* C:\GitHub\research-simulation\Ltspice\Doubler\4to1_doubler_distributed.asc
+V2 N008 0 PULSE(0 1 {period/2} 1p 1p {period/2 - 1p} {period})
+A1 N008 0 0 0 0 0 Ph2 0 BUF
+V§Source Vin 0 {vin}
+S1 Vin N001 Ph1 0 MYSW
+S2 N001 N002 Ph2 0 MYSW
+C1 N001 P001 {cc1} ic = {vin/2} Rser = {ESR}
+Co Vload 0 {cco} ic = {vin/4} Rser = {ESR}
+I1 Vload 0 PULSE(0 2 0 {100*period} 0 1 2 1)
+S4 N005 0 Ph2 0 MYSW
+S3 N005 N002 Ph1 0 MYSW
+S5 N002 N003 Ph1 0 MYSW
+C2 N002 N004 {cc2} ic = {vin/2} Rser = {ESR}
+S8 N003 Vload Ph2 0 MYSW
+C3 N003 P002 {cc3} ic = {vin/4} Rser = {ESR}
+S9 N006 Vload Ph1 0 MYSW
+S10 N006 0 Ph2 0 MYSW
+V1 N007 0 PULSE(0 1 0 1p 1p {period/2-1p} {period})
+A2 N007 0 0 0 0 0 Ph1 0 BUF
+L2 P001 N005 0.1µ
+L3 N004 0 0.1µ
+L4 P002 N006 0.1µ
+.model MYSW SW(Ron=5m Roff=1Meg Vt=.5 Vh=0.0)
+.meas TRAN IINave AVG I(source)
+.meas TRAN Pin PARAM -IINave*5
+.meas TRAN VOave AVG V(Vload)
+.meas TRAN Pout PARAM VOave*2
+.meas TRAN Ploss PARAM Pin-Pout
+.meas TRAN Efficiency PARAM Pout/Pin
+.meas TRAN VO AVG V(Vload)
+.meas TRAN Vmax MAX V(Vload)
+.meas TRAN Vmin MIN V(Vload)
+.meas TRAN ripple PARAM Vmax-Vmin
+.meas TRAN Vout AVG V(Vload)
+.meas TRAN Iout AVG I(I1)
+.meas TRAN Vin AVG V(Vin)
+.param cc = 20u cc1={cc} cc2={cc} cc3={cc} cco=200uu
+.param ESR=2m
+.param vin = 48
+.tran 0 {1008*period+2m} {1000*period+2m} {period/200}
+.step dec PARAM period 3u 100u 60
+.param period=4u
+.backanno
+.end
