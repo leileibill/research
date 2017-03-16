@@ -1,0 +1,56 @@
+* C:\GitHub\research-simulation\Ltspice\FCMC\3level_balance\3level_input_cap.asc
+V2 N005 0 PULSE(0 1 0 1p 1p {1/freq*(1-duty)} {1/freq})
+A1 N005 0 0 0 0 0 Ph1 0 BUF
+V§Source Vin 0 {Vin}
+S11 nc1t sw Ph2b 0 MYSWL
+S12 N001 nc1t Ph1b 0 MYSWH
+V3 N006 0 PULSE(0 1 {1/freq/2+delay} 1p 1p {1/freq*(1-duty)-delay+delay2} {1/freq})
+A3 N006 0 0 0 0 0 Ph2 0 BUF
+S5 nc1b sw Ph2 0 MYSWH
+S6 0 nc1b Ph1 0 MYSWL
+C2 nc1t nc1b {C} Rser={ESR} IC={Vin/2}
+L sw N002 20µ Rser=20m ic = {Iload}
+C10 N002 0 100µ IC={Vin*duty} Rser=1m
+V8 N003 0 PULSE(0 1 {1/freq*(1-duty)+dead+delay} 1p 1p {1/freq*duty-dead*2-delay+delay2} {1/freq})
+A8 N003 0 0 0 0 0 Ph1b 0 BUF
+V9 N004 0 PULSE(0 1 {1/freq/2+1/freq*(1-duty)+dead} 1p 1p {1/freq*duty-dead*2} {1/freq})
+A9 N004 0 0 0 0 0 Ph2b 0 BUF
+D1 0 nc1b MyDiode
+D2 nc1b sw MyDiode
+D7 nc1t N001 MyDiode
+D8 sw nc1t MyDiode
+I1 N002 0 {Iload}
+L1 Vin N001 0.01µ Rser=10m
+C1 N001 0 30µ Rser=5m ic = {vin}
+.model D D
+.lib C:\PROGRA~2\LTC\LTSPIC~1\lib\cmp\standard.dio
+.tran 0 {200m + 4/freq} 200m
+.model MYSWH SW(Ron=10m Roff=1Meg Vt=.5)
+.model MYSWL SW(Ron=10m Roff=1Meg Vt=.5)
+.model MyDiode D(Ron=2m Roff=1Meg Vfwd=2)
+.param delay=0n delay2=0n
+.param freq=120k
+.param duty=0.75 Vin= 50 Iload = 1
+.param dead=40n
+.param C = 4u ESR = 5m
+.meas TRAN S6max MAX V(sw) - V(nc1b)
+.meas TRAN S5max MAX V(nc1b) - V(nc2b)
+.meas TRAN S4max MAX V(nc2b) - V(nc3b)
+.meas TRAN S3max MAX V(nc3b)-V(nc4b)
+.meas TRAN S2max MAX V(nc4b)-V(nc5b)
+.meas TRAN S1max MAX V(nc5b)
+.meas TRAN Vc1_max MAX V(nc1t)-V(nc1b)
+.meas TRAN Vc1 AVG V(nc1t)-V(nc1b)
+.meas TRAN Vin AVG V(vin)
+.meas TRAN S6bmax MAX V(nc1t) - V(sw) 
+.meas TRAN S5bmax MAX V(nc2t) - V(nc1t) 
+.meas TRAN S4bmax MAX V(nc3t) - V(nc2t) 
+.meas TRAN S3bmax MAX V(nc4t) - V(nc3t)
+.meas TRAN S2bmax MAX V(nc5t) - V(nc4t)
+.meas TRAN S1bmax MAX V(Vin) - V(nc5t)
+*.step param C list 2.2u 1.1u
+*.step param Rload list 10 5
+*.step param delay2 list 1.5n 3n
+.step param Iload 1 4 1
+.backanno
+.end

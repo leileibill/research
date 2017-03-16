@@ -16,31 +16,19 @@ current = Vin*duty./Rload;
 figure;
 var_name = '3level_input_cap_L1.0u_C30u_duty0.75_0n_0n.mat';
 load(var_name);
-iload = iload(2:end)
-vc=vc(2:end)
-vin=vin(2:end)
 plot(iload, vc./vin,'s-')
 hold on;
 
 var_name = '3level_input_cap_L0.1u_C30u_duty0.75_0n_0n.mat';
 load(var_name);
-iload = iload(2:end)
-vc=vc(2:end)
-vin=vin(2:end)
 plot(iload, vc./vin,'s-')
 
 var_name = '3level_input_cap_L0.01u_C30u_duty0.75_0n_0n.mat';
 load(var_name);
-iload = iload(2:end)
-vc=vc(2:end)
-vin=vin(2:end)
 plot(iload, vc./vin,'s-')
 
 var_name = '3level_input_cap_L0.0u_C30u_duty0.75_0n_0n.mat';
 load(var_name);
-iload = iload(2:end)
-vc=vc(2:end)
-vin=vin(2:end)
 plot(iload, vc./vin,'s--')
 % 
 % var_name = '3level_delay_3delay_3delay2.mat';
@@ -64,31 +52,19 @@ export_figure('plot_balance_3level_input_cap_d75','png')
 figure;
 var_name = '3level_input_cap_L1.0u_C30u_duty0.25_0n_0n.mat';
 load(var_name);
-iload = iload(2:end)
-vc=vc(2:end)
-vin=vin(2:end)
 plot(iload, vc./vin,'s-')
 hold on;
 
 var_name = '3level_input_cap_L0.1u_C30u_duty0.25_0n_0n.mat';
 load(var_name);
-iload = iload(2:end)
-vc=vc(2:end)
-vin=vin(2:end)
 plot(iload, vc./vin,'s-')
 
 var_name = '3level_input_cap_L0.01u_C30u_duty0.25_0n_0n.mat';
 load(var_name);
-iload = iload(2:end)
-vc=vc(2:end)
-vin=vin(2:end)
 plot(iload, vc./vin,'s-')
 
 var_name = '3level_input_cap_L0.0u_C30u_duty0.25_0n_0n.mat';
 load(var_name);
-iload = iload(2:end)
-vc=vc(2:end)
-vin=vin(2:end)
 plot(iload, vc./vin,'s--')
 % 
 
@@ -97,9 +73,10 @@ ylabel('Normalized Cap Voltage')
 xlabel('Load Current [A]')
 legend('L=1u, C=30u', 'L=0.1u, C=30u', 'L=0.01u, C=30u', ...
         'Voltage source', ...
-    'Location','Southwest')
+    'Location','NorthWest')
  
 set_figure_style();
 resize_figure(2);
 export_figure('plot_balance_3level_input_cap_d25','png')
 
+cascade
