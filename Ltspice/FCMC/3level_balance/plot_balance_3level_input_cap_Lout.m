@@ -22,8 +22,7 @@ plot(cin*1e6, vc./vin,'s-')
 title('Duty = 0.75')
 ylabel('Normalized Cap Voltage')
 xlabel('Input capacitor [$\mu$F]')
-legend('L=1u, C=30u', 'L=0.1u, C=30u', 'L=0.01u, C=30u', ...
-        'Voltage source', ...
+legend('L=1000u', 'L=100u', 'L=10u', ...
     'Location','SouthEast')
  
 set_figure_style();
