@@ -19,8 +19,8 @@ xlabel('Switching frequency [Hz]')
  
 set_figure_style();
 resize_figure(2);
-export_figure('plot_impedance_hard','pdf')
-
+% export_figure('plot_impedance_hard','pdf')
+% 
 %% soft-charging
 
 figure;
@@ -38,7 +38,7 @@ xlabel('Switching frequency [Hz]')
  
 set_figure_style();
 resize_figure(2);
-export_figure('plot_impedance_soft','pdf')
+% export_figure('plot_impedance_soft','pdf')
 
 
 
@@ -52,14 +52,14 @@ load(var_name);
 loglog(freq, (vin/2-vout)./iout)
 
 ylim([1e-2,2e0])
-xlim([1e4,3e5])
+xlim([1e4,1e6])
 % title('Duty = 0.75')
 ylabel('Output impedance [$\Omega$]')
 xlabel('Switching frequency [Hz]')
  
 set_figure_style();
 resize_figure(2);
-export_figure('plot_impedance_distributed','pdf')
+% export_figure('plot_impedance_distributed','pdf')
 
 
 cascade
