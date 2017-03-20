@@ -2,8 +2,8 @@
 clear;
 [cin vc]=read_Ltspice_data('3level_input_cap.log','vc1');
 [cin vin]=read_Ltspice_data('3level_input_cap.log','vin');
-condition = '3level_input_cap_Lin0.1u_Lout1000u_Iload4_duty0.75_0n_0n_vs_cin'
-save('3leve_balance_vs_cin_Lout1000u_duty0.75.mat');
+condition = '3level_input_cap_Lin0.025u_Lout10u_Iload4_duty0.75_0n_0n_vs_cin'
+save('3leve_balance_vs_cin_Lin0.025u_duty0.75.mat');
 
 
 % clear;
